@@ -29,12 +29,38 @@ int main() {
 int fetch() {
     return program[ip];  // prints "0"
 }
-// Prints the next instruction 
-
+void eval(int instr) {
+    switch (instr) {
+    case HLT:
+        running = false;
+        break;
+    case PSH: {
+            sp++;
+            stack[sp] = program[++ip];
+            break;
+        }
+    }
+}
+// Prints the next instruction bool running = true;
+int ip = 0;
+bool running = true;
 int main() {
     int x = fetch(); // PSH
     ip++; // increment instruction pointer
     int y = fetch(); // 5
+    while (running) {
+        eval(fetch());
+        ip++; // increment the ip every iteration 
+    }
+
+    // STACK IMPLEMENTATION 
+
+int sp = -1;
+int stack[256];
+// sp = -1
+sp++; // sp = 0
+stack[sp] = 5; // set value at stack[0] -> 5
+// top of stack is now [5]
 }
 
 // An automated version of the above function 
