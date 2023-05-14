@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include <stdbool.h> 
 #include<stdlib.h>
 typedef enum {
     PSH,     // STACK operations. 
@@ -64,7 +65,6 @@ stack[sp] = 5; // set value at stack[0] -> 5
 }
 
 // An automated version of the above function 
-#include <stdbool.h> 
 
 bool running = true;
 
