@@ -12,7 +12,10 @@ typedef enum {
     SWP,
     OVR,
     POP,
-    HLT
+    HLT,
+    EQ, // Equality comparison
+    LT, // Less than comparison
+    GT  // Greater than comparison
 } InstructionSet;
 
 int fetch();
