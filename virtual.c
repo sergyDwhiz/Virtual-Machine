@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "header.c" 
+#include "header.c"
 
 typedef enum {
     PSH,
@@ -14,27 +14,24 @@ typedef enum {
     SWP,
     OVR,
     POP,
-    HLT
+    HLT,
+    EQ, // Equality comparison
+    LT, // Less than comparison
+    GT  // Greater than comparison
 } InstructionSet;
 
 const int program[] = {
     PSH, 5,
-    PSH, 6,
-    ADD,
+    PSH, 5,
+    EQ,
     POP,
+    PSH, 5,
     PSH, 10,
-    DUP,
-    MUL,
+    LT,
     POP,
     PSH, 20,
     PSH, 30,
-    SWP,
-    SUB,
-    POP,
-    PSH, 15,
-    PSH, 5,
-    OVR,
-    MOD,
+    GT,
     POP,
     HLT
 };
@@ -122,6 +119,30 @@ void eval(int instr) {
             printf("%d\n", stack[sp]);
             sp--;
             break;
+        case EQ:
+            if (stack[sp - 1] == stack[sp]) {
+                stack[sp - 1] = 1; // True
+            } else {
+                stack[sp - 1] = 0; // False
+            }
+            sp--;
+            break;
+        case LT:
+            if (stack[sp - 1] < stack[sp]) {
+                stack[sp - 1] = 1; // True
+            } else {
+                stack[sp - 1] = 0; // False
+            }
+            sp--;
+            break;
+        case GT:
+            if (stack[sp - 1] > stack[sp]) {
+                stack[sp - 1] = 1; // True
+            } else {
+                stack[sp - 1] = 0; // False
+            }
+            sp--;
+            break;
         default:
             printf("Invalid instruction\n");
             running = false;
@@ -134,6 +155,6 @@ int main() {
         eval(fetch());
         ip++;
     }
-    
+
     return 0;
 }
