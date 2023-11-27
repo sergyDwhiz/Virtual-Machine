@@ -39,7 +39,7 @@ const int program[] = {
 int ip = 0;
 bool running = true;
 int sp = -1;
-int stack[256];
+int stack[512];
 
 void sub() {
     stack[sp - 1] -= stack[sp];
