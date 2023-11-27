@@ -20,7 +20,7 @@ typedef enum {
     GT  // Greater than comparison
 } InstructionSet;
 
-const int program[] = {
+const int program[] = {  // Stack program flow
     PSH, 5,
     PSH, 5,
     EQ,
