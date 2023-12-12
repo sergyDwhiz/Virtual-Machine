@@ -6,20 +6,20 @@
 #define STACK_SIZE 512 // (It remains a good practice to select powers of two 
                        //  for computational efficiency... 2^9 = 512)
 typedef enum {
-    PSH,
-    ADD,
-    SUB,
-    MUL,
-    DIV,
-    MOD,
-    DUP,
-    SWP,
-    OVR,
-    POP,
-    HLT,
-    EQ, // Equality comparison
-    LT, // Less than comparison
-    GT  // Greater than comparison
+    PSH,  // Push unto STACK
+    ADD,  // Addition Operation
+    SUB,  // Subtraction Operation
+    MUL,  // Multiplication Operation
+    DIV,  // Division Operation
+    MOD,  // Modulus Operation
+    DUP,  // Duplicate the top of the STACK
+    SWP,  // Swap the top two elements of the STACK
+    OVR,  // Copy the second element of the STACK to the top
+    POP,  // Pop the top of the STACK
+    HLT,  // Halt the program
+    EQ,   // Equality comparison
+    LT,   // Less than comparison
+    GT    // Greater than comparison
 } InstructionSet;
 
 const int program[] = {  // Stack program flow
