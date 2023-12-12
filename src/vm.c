@@ -46,18 +46,26 @@ int sp = -1;
 bool running = true; // Control flag for the main execution loop of the program. P
                     // Program runs as long as running = true; 
 int stack[STACK_SIZE];
-void push(int value) {  // Push value to stack. 
+
+// Push value to stack.
+void push(int value) {   
     if(sp < STACK_SIZE) {
         stack[++sp] = value;
     } else {
         printf("Stack Overflow\n");
-        exit(1);
+        running = false; // Program terminates if stack is full. 
     }
 }
-void sub() {
-    stack[sp - 1] -= stack[sp];
-    sp--;
+// Pop value from stack.
+void pop(){
+    if(sp > -1) {
+        stack[sp--];
+    } else {
+        printf("Stack Underflow\n");
+        running = false; // Program terminates if stack is empty. 
+    }
 }
+void
 
 void mul() {
     stack[sp - 1] *= stack[sp];
