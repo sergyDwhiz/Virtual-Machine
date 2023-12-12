@@ -37,12 +37,23 @@ const int program[] = {  // Stack program flow
     POP,
     HLT
 };
-
-int ip = 0;
-bool running = true;
-int sp = -1;
-int stack[512];
-
+/**
+ * The instruction pointer (ip) points to the current instruction being executed.
+ * Incrementing its value means moving to the next instruction.
+ * The stack pointer (sp) points to the top of the stack which is initially empty (-1)
+*/
+int sp = -1; 
+bool running = true; // Control flag for the main execution loop of the program. P
+                    // Program runs as long as running = true; 
+int stack[STACK_SIZE];
+void push(int value) {  // Push value to stack. 
+    if(sp < STACK_SIZE) {
+        stack[++sp] = value;
+    } else {
+        printf("Stack Overflow\n");
+        exit(1);
+    }
+}
 void sub() {
     stack[sp - 1] -= stack[sp];
     sp--;
