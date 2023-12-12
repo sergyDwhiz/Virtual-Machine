@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "header.c"
 
+#define STACK_SIZE 512 // (It remains a good practice to select powers of two 
+                       //  for computational efficiency... 2^9 = 512)
 typedef enum {
     PSH,
     ADD,
@@ -29,7 +31,7 @@ const int program[] = {  // Stack program flow
     PSH, 10,
     LT,
     POP,
-    PSH, 20,
+    PSH, 20, 
     PSH, 30,
     GT,
     POP,
