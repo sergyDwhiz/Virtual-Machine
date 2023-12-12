@@ -81,7 +81,7 @@ void sub(){
         b = stack[sp - 1];
         sp -= 2;
         push(b - a);
-    }
+    } 
    else {
         printf("Stack Underflow\n");
         running = false; // Program terminates if stack is empty.
@@ -94,13 +94,26 @@ void mul() {
 }
 
 void div() {
+    if(stack[sp-1]!=0)
+    {
     stack[sp - 1] /= stack[sp];
     sp--;
+    }
+    else {
+        printf("Division by Zero\n");
+        running= false; // Error. 
+    }
 }
 
 void mod() {
-    stack[sp - 1] %= stack[sp];
+    if(stack[sp - 1]!=0) {
+        stack[sp - 1] %= stack[sp];
     sp--;
+    }
+    else{
+        printf("Division by Zero\n"); // Error
+        running= false;
+    }
 }
 
 void dup() {
