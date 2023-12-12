@@ -28,6 +28,23 @@ typedef enum {
     GT    // Greater than comparison
 } InstructionSet;
 
+int* load_program(const char* filename){
+FILE* file = fopen(filename, "r");
+if(!file){
+    printf("Could not open file %s\n", filename);
+    exit(1);
+}
+
+int* program = malloc(STACK_SIZE* sizeof(int));
+int i = 0 ; 
+
+while(fscanf(file, "%d", &program[i])==1){
+    i++;
+}
+fclose(file);
+return program;
+}
+
 const int program[] = {  // Stack program flow
     PSH, 5,
     PSH, 5,
@@ -48,7 +65,7 @@ const int program[] = {  // Stack program flow
  * Incrementing its value means moving to the next instruction.
  * The stack pointer (sp) points to the top of the stack which is initially empty (-1)
 */
-int sp = -1; 
+int sp = -1, ip = 0;
 bool running = true; // Control flag for the main execution loop of the program. P
                     // Program runs as long as running = true; 
 int stack[STACK_SIZE];
@@ -133,7 +150,7 @@ void over() {
 }
 
 int fetch() {
-    return program[ip];
+    return program[ip]; 
 }
 
 void eval(int instr) {
