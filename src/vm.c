@@ -226,7 +226,7 @@ int main(int argc, char** argv){
     }
     int* program = load_program(argv[1]);
     while (running){
-        eval(fetch(program));
+        eval(fetch(program)); // Fetch and execute the next instruction.
         ip++;
     }
 
