@@ -1,3 +1,9 @@
+/**
+ * Main file for a Stack Based Virtual Machine (VM) written in C.
+ * Copyright (C) 2023 Sergius Nyah
+ * licensed under the MIT license.
+*/
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -65,7 +71,22 @@ void pop(){
         running = false; // Program terminates if stack is empty. 
     }
 }
-void
+// Subtract function. 
+void sub(){
+    int a;
+    int b;
+
+    if (sp >= 1) {
+        a = stack[sp];
+        b = stack[sp - 1];
+        sp -= 2;
+        push(b - a);
+    }
+   else {
+        printf("Stack Underflow\n");
+        running = false; // Program terminates if stack is empty.
+    }
+}
 
 void mul() {
     stack[sp - 1] *= stack[sp];
