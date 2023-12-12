@@ -222,11 +222,18 @@ void eval(int instr) {
     }
 }
 
-int main() {
-    while (running) {
-        eval(fetch());
+int main(int argc, char** argv){
+    if(argc < 2){
+        printf("Usage: %s <program>\n", argv[0]);
+        return 1;
+    }
+    int* program = load_program(argv[1]);
+    while (running){
+        eval(fetch(program));
         ip++;
     }
 
+    free(program);
     return 0;
 }
+
