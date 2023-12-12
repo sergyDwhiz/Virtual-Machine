@@ -7,12 +7,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "header.c"
 
 #define STACK_SIZE 512 // (It remains a good practice to select powers of two 
                        //  for computational efficiency... 2^9 = 512)
 typedef enum {
-    PSH,  // Push unto STACK
+    PSH,  // Push unto STACK 
     ADD,  // Addition Operation
     SUB,  // Subtraction Operation
     MUL,  // Multiplication Operation
@@ -29,20 +28,20 @@ typedef enum {
 } InstructionSet;
 
 int* load_program(const char* filename){
-FILE* file = fopen(filename, "r");
-if(!file){
-    printf("Could not open file %s\n", filename);
-    exit(1);
-}
+    FILE* file = fopen(filename, "r");
+    if(!file){
+        printf("Could not open file %s\n", filename);
+        exit(1);
+    }
 
-int* program = malloc(STACK_SIZE* sizeof(int));
-int i = 0 ; 
+    int* program = malloc(STACK_SIZE * sizeof(int));
+    int i = 0;
 
-while(fscanf(file, "%d", &program[i])==1){
-    i++;
-}
-fclose(file);
-return program;
+    while(fscanf(file, "%d", &program[i]) == 1){
+        i++;
+    }
+    fclose(file);
+    return program;
 }
 
 const int program[] = {  // Stack program flow
@@ -79,15 +78,17 @@ void push(int value) {
         running = false; // Program terminates if stack is full. 
     }
 }
+
 // Pop value from stack.
 void pop(){
     if(sp > -1) {
-        stack[sp--];
+        sp--;
     } else {
         printf("Stack Underflow\n");
         running = false; // Program terminates if stack is empty. 
     }
 }
+
 // Subtract function. 
 void sub(){
     int a;
@@ -98,8 +99,7 @@ void sub(){
         b = stack[sp - 1];
         sp -= 2;
         push(b - a);
-    } 
-   else {
+    } else {
         printf("Stack Underflow\n");
         running = false; // Program terminates if stack is empty.
     }
@@ -111,25 +111,22 @@ void mul() {
 }
 
 void div() {
-    if(stack[sp-1]!=0)
-    {
-    stack[sp - 1] /= stack[sp];
-    sp--;
-    }
-    else {
+    if(stack[sp - 1] != 0) {
+        stack[sp - 1] /= stack[sp];
+        sp--;
+    } else {
         printf("Division by Zero\n");
-        running= false; // Error. 
+        running = false; // Error. 
     }
 }
 
 void mod() {
-    if(stack[sp - 1]!=0) {
+    if(stack[sp - 1] != 0) {
         stack[sp - 1] %= stack[sp];
-    sp--;
-    }
-    else{
+        sp--;
+    } else {
         printf("Division by Zero\n"); // Error
-        running= false;
+        running = false;
     }
 }
 
@@ -189,7 +186,7 @@ void eval(int instr) {
             break;
         case POP:
             printf("%d\n", stack[sp]);
-            sp--;
+            pop();
             break;
         case EQ:
             if (stack[sp - 1] == stack[sp]) {
@@ -236,4 +233,3 @@ int main(int argc, char** argv){
     free(program);
     return 0;
 }
-
